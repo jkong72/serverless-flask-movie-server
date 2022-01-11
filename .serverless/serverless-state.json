@@ -220,7 +220,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-flask-movie-server/dev/1641877615970-2022-01-11T05:06:55.970Z/serverless-flask-movie-server.zip"
+                "S3Key": "serverless/serverless-flask-movie-server/dev/1641879518212-2022-01-11T05:38:38.212Z/serverless-flask-movie-server.zip"
               },
               "Handler": "s_api.handler",
               "Runtime": "python3.8",
@@ -238,14 +238,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionI2NrbAyyJfRbKHBoHyGBLZmndniBGWnafevnSgOOeo": {
+          "ApiLambdaVersion3jjARPCpniszP5JR38oAC17UDchSZG1tvI84ezzNadw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "TyMycs9uIZYMEXbGMgiP5s19LaH4MDbHJIMG4StHt/E="
+              "CodeSha256": "ZDQ5eCcs50r58X72c0b7zK4RPY69f0surmRd16QLNI8="
             }
           },
           "ApiGatewayRestApi": {
@@ -370,7 +370,7 @@
               "ApiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1641877590291": {
+          "ApiGatewayDeployment1641879496847": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -529,7 +529,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-flask-movie-server/dev/1641877615970-2022-01-11T05:06:55.970Z/custom-resources.zip"
+                "S3Key": "serverless/serverless-flask-movie-server/dev/1641879518212-2022-01-11T05:38:38.212Z/custom-resources.zip"
               },
               "FunctionName": "serverless-flask-movie-server-dev-custom-resource-apigw-cw-role",
               "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -591,7 +591,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionI2NrbAyyJfRbKHBoHyGBLZmndniBGWnafevnSgOOeo"
+              "Ref": "ApiLambdaVersion3jjARPCpniszP5JR38oAC17UDchSZG1tvI84ezzNadw"
             },
             "Export": {
               "Name": "sls-serverless-flask-movie-server-dev-ApiLambdaFunctionQualifiedArn"
@@ -749,7 +749,7 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionI2NrbAyyJfRbKHBoHyGBLZmndniBGWnafevnSgOOeo"
+        "versionLogicalId": "ApiLambdaVersion3jjARPCpniszP5JR38oAC17UDchSZG1tvI84ezzNadw"
       }
     },
     "configValidationMode": "warn",
@@ -784,7 +784,7 @@
     "artifact": "C:\\Users\\5-6\\Documents\\serverless\\serverless-flask-movie-server\\.serverless\\serverless-flask-movie-server.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-flask-movie-server/dev/1641877615970-2022-01-11T05:06:55.970Z",
+    "artifactDirectoryName": "serverless/serverless-flask-movie-server/dev/1641879518212-2022-01-11T05:38:38.212Z",
     "artifact": "serverless-flask-movie-server.zip"
   }
 }
