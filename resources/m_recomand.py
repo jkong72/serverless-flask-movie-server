@@ -67,7 +67,7 @@ class MovieRecommandResource(Resource):
                                                         aggfunc = 'mean')
             del movies_rating_df
 
-            recom_movie = userid_movietitle_matrix.corr()
+            recom_movie = userid_movietitle_matrix.corr(min_periods=100)
             del userid_movietitle_matrix                            
 
 
