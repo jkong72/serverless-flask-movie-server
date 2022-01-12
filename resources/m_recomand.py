@@ -67,7 +67,8 @@ class MovieRecommandResource(Resource):
                                                         aggfunc = 'mean')
             del movies_rating_df
 
-            recom_movie = userid_movietitle_matrix.corr()                            
+            recom_movie = userid_movietitle_matrix.corr()
+            del userid_movietitle_matrix                            
 
 
             # 실제 추천 기능 부분
@@ -99,6 +100,8 @@ class MovieRecommandResource(Resource):
                 similar_movie['Weight'] = rating['rating'][i] * similar_movie['corr']
                 
                 similar_movies_list = similar_movies_list.append(similar_movie)
+            
+            del recom_movie
             
             # 중복 제거
             similar_movies_list.reset_index(inplace=True)
