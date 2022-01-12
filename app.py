@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from config import Config
+
 from resources.f_favorite import FavoriteSwitchResource
 from resources.f_myfavorite import FavoriteListResource
 from resources.m_detail import MovieDetailResource
@@ -9,6 +10,7 @@ from resources.m_movie import MovieListResource
 from resources.m_recomand import MovieRecommandResource
 from resources.m_search import MovieSearchResource
 from resources.r_review import ReviewListResource
+from resources.test_pandas import PandasTestResource
 from resources.u_info import UserInformationResource
 from resources.u_login import UserLoginResource
 from resources.u_logout import LogoutResource, jwt_blacklist
@@ -37,8 +39,7 @@ api.add_resource(ReviewListResource,'/api/v1/movie/<int:movie_id>/review') #영�
 api.add_resource(FavoriteSwitchResource,'/api/v1/movie/<int:movie_id>/favorite') #즐겨찾기 설정/해제
 api.add_resource(FavoriteListResource, '/api/v1/favorite') #내 즐겨찾기
 api.add_resource(MovieRecommandResource, '/api/v1/user/recommand') #영화 추천
-
-
+api.add_resource(PandasTestResource, '/pandas') #테스트
 
 
 
