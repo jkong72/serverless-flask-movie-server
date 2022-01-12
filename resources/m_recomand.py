@@ -39,10 +39,13 @@ class MovieRecommandResource(Resource):
             record_list = cursor.fetchall()
 
             rating_list = record_list
+            del record_list
 
             # 데이터프레임화
             movie_df = pd.DataFrame(movie_list)
+            del movie_list
             rating_df = pd.DataFrame(rating_list)
+            del rating_list
 
             # 필요한 데이터만 추출
             movie_df = movie_df[['id', 'title']]
@@ -53,6 +56,8 @@ class MovieRecommandResource(Resource):
 
             # 두 데이터를 합치기
             movies_rating_df = pd.merge(rating_df, movie_df, how='left', on='movie_id')
+            del rating_df
+            del movie_df
 
             # 피벗테이블 활용해 영화간 상관관계 분석
             userid_movietitle_matrix = pd.pivot_table(movies_rating_df,
@@ -60,6 +65,7 @@ class MovieRecommandResource(Resource):
                                                         columns = 'movie_id',
                                                         values = 'rating',
                                                         aggfunc = 'mean')
+            del movies_rating_df
 
             recom_movie = userid_movietitle_matrix.corr()                            
 
