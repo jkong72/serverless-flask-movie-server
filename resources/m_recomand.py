@@ -1,6 +1,5 @@
 from flask_jwt_extended.utils import get_jwt_identity
 from flask_jwt_extended.view_decorators import jwt_required
-from flask import request
 from flask_restful import Resource
 from http import HTTPStatus
 from mysql.connector.errors import Error

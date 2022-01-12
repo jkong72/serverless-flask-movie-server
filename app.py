@@ -28,7 +28,7 @@ api = Api(app)
 
 api.add_resource(UserRegisterResource, '/api/v1/user/register') # 회원가입
 api.add_resource(UserLoginResource,'/api/v1/user/login') #로그인
-api.add_resource(LogoutResource, '/api/v1/user/logout') #로그아웃\
+api.add_resource(LogoutResource, '/api/v1/user/logout') #로그아웃
 api.add_resource(UserInformationResource, '/api/v1/user/me') #내 정보
 api.add_resource(MovieListResource, '/api/v1/movie') #모든 영화 보기 (25/페이지)
 api.add_resource(MovieSearchResource,'/api/v1/movie/search') #영화 검색 (25/페이지)
