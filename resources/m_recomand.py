@@ -19,45 +19,63 @@ class MovieRecommandResource(Resource):
             # if True:
             #     pass
 
-            # movie 데이터테이블 가져오기
-            query = '''select *
-                        from movie'''
+            # # movie 데이터테이블 가져오기
+            # query = '''select *
+            #             from movie'''
 
+            # cursor = cnx.cursor(dictionary = True)
+            # cursor.execute(query)
+            # record_list = cursor.fetchall()
+
+            # movie_list = record_list
+
+
+            # # rating 데이터테이블 가져오기
+            # query = '''select *
+            #             from rating'''
+
+            # cursor = cnx.cursor(dictionary = True)
+            # cursor.execute(query)
+            # record_list = cursor.fetchall()
+
+            # rating_list = record_list
+            # del record_list
+
+            # # 데이터프레임화
+            # movie_df = pd.DataFrame(movie_list)
+            # del movie_list
+            # rating_df = pd.DataFrame(rating_list)
+            # del rating_list
+
+            # # 필요한 데이터만 추출
+            # movie_df = movie_df[['id', 'title']]
+            # rating_df = rating_df.iloc[:,1:3+1]
+
+            # # merge 기준열로 사용하기 위해 컬럼이름 변경
+            # movie_df.columns = ['movie_id', 'title']
+
+            # # 두 데이터를 합치기
+            # movies_rating_df = pd.merge(rating_df, movie_df, how='left', on='movie_id')
+            # del rating_df
+            # del movie_df
+
+            query = '''select m.id
+                                ,m.title
+                                ,r.user_id
+                                ,r.rating
+                                ,count(r.id) as review_count
+                        from movie m
+                            join rating r
+                                on r.movie_id = m.id
+                        group by r.movie_id
+                        having review_count > 100;
+            '''
             cursor = cnx.cursor(dictionary = True)
             cursor.execute(query)
             record_list = cursor.fetchall()
 
-            movie_list = record_list
-
-
-            # rating 데이터테이블 가져오기
-            query = '''select *
-                        from rating'''
-
-            cursor = cnx.cursor(dictionary = True)
-            cursor.execute(query)
-            record_list = cursor.fetchall()
-
-            rating_list = record_list
-            del record_list
-
-            # 데이터프레임화
-            movie_df = pd.DataFrame(movie_list)
-            del movie_list
-            rating_df = pd.DataFrame(rating_list)
-            del rating_list
-
-            # 필요한 데이터만 추출
-            movie_df = movie_df[['id', 'title']]
-            rating_df = rating_df.iloc[:,1:3+1]
-
-            # merge 기준열로 사용하기 위해 컬럼이름 변경
-            movie_df.columns = ['movie_id', 'title']
-
-            # 두 데이터를 합치기
-            movies_rating_df = pd.merge(rating_df, movie_df, how='left', on='movie_id')
-            del rating_df
-            del movie_df
+            movies_rating_list = record_list
+            movies_rating_df = pd.DataFrame(movies_rating_list)
 
             # 피벗테이블 활용해 영화간 상관관계 분석
             userid_movietitle_matrix = pd.pivot_table(movies_rating_df,
@@ -67,7 +85,7 @@ class MovieRecommandResource(Resource):
                                                         aggfunc = 'mean')
             del movies_rating_df
 
-            recom_movie = userid_movietitle_matrix.corr(min_periods=5000)
+            recom_movie = userid_movietitle_matrix.corr(min_periods=100)
             recom_movie.to_csv('data')
             del userid_movietitle_matrix                            
 
