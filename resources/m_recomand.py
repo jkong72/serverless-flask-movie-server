@@ -86,7 +86,10 @@ class MovieRecommandResource(Resource):
             del movies_rating_df
 
             recom_movie = userid_movietitle_matrix.corr(min_periods=100)
+<<<<<<< HEAD
             recom_movie.to_csv('data')
+=======
+>>>>>>> parent of 86bf990 (commit)
             del userid_movietitle_matrix                            
 
 
