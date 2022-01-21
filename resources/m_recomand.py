@@ -59,7 +59,7 @@ class MovieRecommandResource(Resource):
             # del rating_df
             # del movie_df
 
-            query = '''select m.id
+            query = '''select m.id as movie_id
                                 ,m.title
                                 ,r.user_id
                                 ,r.rating
@@ -77,6 +77,8 @@ class MovieRecommandResource(Resource):
             movies_rating_list = record_list
             movies_rating_df = pd.DataFrame(movies_rating_list)
 
+            
+
             # 피벗테이블 활용해 영화간 상관관계 분석
             userid_movietitle_matrix = pd.pivot_table(movies_rating_df,
                                                         index = 'user_id',
@@ -85,11 +87,9 @@ class MovieRecommandResource(Resource):
                                                         aggfunc = 'mean')
             del movies_rating_df
 
-            recom_movie = userid_movietitle_matrix.corr(min_periods=100)
-<<<<<<< HEAD
-            recom_movie.to_csv('data')
-=======
->>>>>>> parent of 86bf990 (commit)
+            recom_movie = userid_movietitle_matrix#.corr(min_periods=100)
+            print (recom_movie)
+
             del userid_movietitle_matrix                            
 
 
@@ -112,6 +112,7 @@ class MovieRecommandResource(Resource):
 
             # 데이터프레임화
             rating = pd.DataFrame(rating)
+            print (rating)
 
             # 유저가 평가한 영화를 바탕으로
             # 상관관계를 파악하고, 평가를 가중치로 곱함.
