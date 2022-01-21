@@ -76,6 +76,7 @@ class MovieRecommandResource(Resource):
 
             movies_rating_list = record_list
             movies_rating_df = pd.DataFrame(movies_rating_list)
+            print (movies_rating_df)
 
             
 
@@ -86,9 +87,10 @@ class MovieRecommandResource(Resource):
                                                         values = 'rating',
                                                         aggfunc = 'mean')
             del movies_rating_df
-
-            recom_movie = userid_movietitle_matrix#.corr(min_periods=100)
+            print (userid_movietitle_matrix)
+            recom_movie = userid_movietitle_matrix.corr()
             print (recom_movie)
+            
 
             del userid_movietitle_matrix                            
 
@@ -112,20 +114,33 @@ class MovieRecommandResource(Resource):
 
             # 데이터프레임화
             rating = pd.DataFrame(rating)
+            print (recom_movie)
+            print (recom_movie.isna().sum().sum())
+            print ('-'*25)
             print (rating)
+            print ('-'*25)
+            print (len(list(recom_movie.columns)))
+            print ('-'*25)
+            print (rating['movie_id'][3])
+            print ('-'*25)
+            
 
             # 유저가 평가한 영화를 바탕으로
             # 상관관계를 파악하고, 평가를 가중치로 곱함.
             similar_movies_list = pd.DataFrame()
             for i in range(rating.shape[0]) :
-                similar_movie = recom_movie[ (rating['movie_id'][i]) ].dropna().sort_values(ascending=False).to_frame()
-                similar_movie.columns = ['corr']
-                similar_movie['Weight'] = rating['rating'][i] * similar_movie['corr']
+                if rating['movie_id'][i] in list(recom_movie.columns):
+                    similar_movie = recom_movie[ (rating['movie_id'][i]) ].dropna().sort_values(ascending=False).to_frame()
+                    similar_movie.columns = ['corr']
+                    similar_movie['Weight'] = rating['rating'][i] * similar_movie['corr']
+                    
+                    similar_movies_list = similar_movies_list.append(similar_movie)
+                else:
+                    pass
                 
-                similar_movies_list = similar_movies_list.append(similar_movie)
-            
             del recom_movie
-            
+            print (similar_movies_list)
+
             # 중복 제거
             similar_movies_list.reset_index(inplace=True)
             # 영화 선택에는 복합적인 요소에 영향을 받으므로
